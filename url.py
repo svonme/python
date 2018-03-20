@@ -4,6 +4,7 @@ import urllib2
 import cookielib
 import urlparse
 import os
+import re
 from bs4 import BeautifulSoup
 import sys
 reload(sys)
@@ -35,9 +36,8 @@ print "请求内容长度 %s \n" % len(response_body)
 
 soup = BeautifulSoup(response_body, 'lxml', from_encoding="utf-8")
 
-links = soup.find_all('a')
-
 """
+links = soup.find_all('a')  #获取所有 a 元素
 for link in links:
     text = link.get_text()
     href = link.get('href', '')
@@ -46,6 +46,8 @@ for link in links:
         pass
 """
 
+"""
+#下载图片
 imgs = soup.find_all('img')
 
 for img in imgs:
@@ -60,3 +62,18 @@ for img in imgs:
             f.write(cat_img)
             print "%s=%s" % (name, src)
         pass
+
+"""
+
+"""
+#模糊匹配
+div = soup.find('div', class_=re.compile(r"mfw-sales"))
+items = div.find_all('li', class_='item')
+
+for item in items:
+    link = item.find('a')
+    href = link.get('href', '')
+    if href:
+        print "%s=%s" % (link.get_text(), href)
+        pass
+"""
