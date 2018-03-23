@@ -22,6 +22,9 @@ class HtmlOutputer(object):
         fout.write('<table>')
 
         for index, data in enumerate(self.datas):
+            if data is None:
+                continue
+            
             fout.write('<tr>')
             fout.write('<td>%s</td>' % (index + 1))
             fout.write('<td><a href="%s" target="_blank">%s</a></td>' % (data['url'].encode("utf-8"), data['title'].encode("utf-8")))

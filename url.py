@@ -10,7 +10,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-url = "http://www.mafengwo.cn/"
+url = "https://baike.baidu.com/item/Python/407313"
 userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36"
 
 # 声明一个 cookie 对象
@@ -35,6 +35,7 @@ response_body = response.read()
 print "请求内容长度 %s \n" % len(response_body)
 
 soup = BeautifulSoup(response_body, 'lxml', from_encoding="utf-8")
+
 
 """
 links = soup.find_all('a')  #获取所有 a 元素

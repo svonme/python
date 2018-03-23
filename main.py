@@ -28,13 +28,15 @@ class SpiderMain(object):
                 self.urls.add_new_urls(new_links)
                 print '记录分析的数据'
                 self.outputer.collect_data(new_data)
-                if count >= 30:
+                if count >= 1000:
                     print '退出爬虫'
                     break
-                count += 1
             except Exception as e:
                 print e
                 print 'craw faile %s' %  new_url
+
+            count += 1
+
 
         print '保存已爬取的数据'
         self.outputer.outputer_html()

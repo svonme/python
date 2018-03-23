@@ -32,16 +32,25 @@ class HtmlParser(object):
 
     # 解析页面基本数据
     def _get_new_data(self, page_url, soup):
-        dd = soup.find("dd", class_="lemmaWgt-lemmaTitle-title")
-        summary_div = soup.find("div", class_="lemmaSummary")
+        lemmaTitle = soup.find("dd", class_="lemmaWgt-lemmaTitle-title")
+        title = ""     #标题
+        category = ""  #分类
+        summary = ""   #简介
+        # 如果标题为空
+        if lemmaTitle:
+            h1 = lemmaTitle.find("h1")
+            h2 = lemmaTitle.find("h2")
+            if h1:
+                title = h1.get_text()
+            if h2:
+                category = h2.get_text()
+        else:
+            return
 
-        summary = ""
+        summary_div = soup.find("div", class_="lemma-summary")
         if summary_div:
             summary = summary_div.get_text()
 
-        title = dd.find("h1").get_text()
-        category = dd.find("h2").get_text()
-        
         return {
             "url": page_url,
             "title": title,
