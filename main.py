@@ -44,7 +44,7 @@ class SpiderMain(object):
 
 
 if __name__ == "__main__":
-    root_url = "https://baike.baidu.com/item/Python/407313"
+    root_url = "https://segmentfault.com/a/1190000013971568"
 
     spider = SpiderMain()
     spider.craw(root_url)

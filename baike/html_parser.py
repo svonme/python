@@ -23,7 +23,7 @@ class HtmlParser(object):
 
     # 解析页面中的 url
     def _get_new_urls(self, page_url, soup):
-        links = soup.find_all("a", href=re.compile(r"/item/.+/\d+$"))
+        links = soup.find_all("a", href=re.compile(r"/a/\w+"))
         new_urls = set()
         for link in links:
             url = urlparse.urljoin(page_url, link['href'])
@@ -32,14 +32,14 @@ class HtmlParser(object):
 
     # 解析页面基本数据
     def _get_new_data(self, page_url, soup):
-        lemmaTitle = soup.find("dd", class_="lemmaWgt-lemmaTitle-title")
+        lemmaTitle = soup.find("div", class_="post-topheader__info")
         title = ""     #标题
         category = ""  #分类
         summary = ""   #简介
         # 如果标题为空
         if lemmaTitle:
-            h1 = lemmaTitle.find("h1")
-            h2 = lemmaTitle.find("h2")
+            h1 = lemmaTitle.find("h1", id="articleTitle")
+            h2 = lemmaTitle.find("ul", class_="article__title--tag")
             if h1:
                 title = h1.get_text()
             if h2:
@@ -47,9 +47,9 @@ class HtmlParser(object):
         else:
             return
 
-        summary_div = soup.find("div", class_="lemma-summary")
+        summary_div = soup.find("div", class_="article__content")
         if summary_div:
-            summary = summary_div.get_text()
+            summary = summary_div.prettify()
 
         return {
             "url": page_url,
