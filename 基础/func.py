@@ -7,10 +7,13 @@
 
 # 返回一个数的绝对值
 def _abs(value):
-    num = int(value)
-    if num > 0:
-        return num
-    return num * -1
+    # 判断数值类型
+    if not isinstance(value, (int, float)):
+        raise TypeError('bad operand type')
+
+    if value > 0:
+        return value
+    return value * -1
 
 
 # 定义参数默认值
@@ -35,6 +38,23 @@ def calc(*nums):
         sum += i
     return sum
 
+# 多返回值
+# python 返回值是一个tuple。在语法上，返回一个tuple可以省略括号，
+# 而多个变量可以同时接收一个tuple，按位置赋给对应的值，
+# 所以 Python 的函数返回多值其实就是返回一个tuple
+def person():
+    name = "张三"
+    age = 25
+    sex = "男"
+    return name, age, sex
+
+# 可变参数
+def calc(*numbers):
+    count = 0
+    for n in numbers:
+        count = count + n
+    return count
+
 
 if __name__ == '__main__':
     number = -1
@@ -49,3 +69,8 @@ if __name__ == '__main__':
     print('calc 1 + 2 + 3 = %d\n' % calc(1, 2, 3))
 
     print('扩展list calc(*[1, 2, 3]) = %d\n' % calc(*[1, 2, 3]))
+
+    print('多返回值: 姓名=%s, 年龄=%s, 性别=%s\n' % person())
+
+    _num = (1, 2, 3, 4, 5, 6, 7)
+    print('可变参数: calc%s = %d\n' % (_num, calc(*_num)))
