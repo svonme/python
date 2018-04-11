@@ -43,7 +43,6 @@ def router(path):
         return wrapper
     return decorator
 
-
 @router("/index")
 def app():
     print("router - index")
