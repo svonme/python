@@ -31,6 +31,21 @@ def test(*args):
         sum += i
     return sum
 
-
 # print(test(*list(range(10))))
 print(test(1, 2, 3, 4, 5, 6, 7))
+
+# 设置一个路由
+def router(path):
+    def decorator(func):
+        def wrapper(*args, **kw):
+            print('%s %s():' % (path, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+
+
+@router("/index")
+def app():
+    print("router - index")
+
+app()
