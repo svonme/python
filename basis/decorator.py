@@ -7,6 +7,8 @@
 # 装饰器
 
 import time
+import functools
+
 
 def log(func):
     def wrapper(*args, **kw):
@@ -34,17 +36,22 @@ def test(*args):
 # print(test(*list(range(10))))
 print(test(1, 2, 3, 4, 5, 6, 7))
 
+
 # 设置一个路由
 def router(path):
     def decorator(func):
+        # 将原函数的属性复制给包装后的新函数对象上
+        @functools.wraps(func)
         def wrapper(*args, **kw):
             print('%s %s():' % (path, func.__name__))
             return func(*args, **kw)
         return wrapper
     return decorator
 
+
 @router("/index")
 def app():
+    print("name = %s" % app.__name__)
     print("router - index")
 
 app()
