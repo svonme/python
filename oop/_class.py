@@ -9,6 +9,12 @@
 
 
 class Person(object):
+    # 输出该类的基本信息
+    def __str__(self):
+        return 'Person object name:%s, age:%d' % (self.name, self.age)
+
+    # 输入该类的基本信息, 该方法为在使用终端时输出
+    __repr__ = __str__
 
     # 构造函数
     def __init__(self, name, age):
@@ -27,3 +33,5 @@ if __name__ == '__main__':
 
     person = Person('张三', 22)
     person.introduce()
+
+    print(person)
